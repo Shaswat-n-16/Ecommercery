@@ -7,12 +7,15 @@
    -password : String (hash)
    -profilePicture : String
    -phone : String
+   -role: 0
    -cartProduct : [Product]
+   -review: [Review]
 
 2. Product
    -id :String
    -title : String
    -description : String
+   -price: Number
    -category : String
    -image : String
    -reviews: [Review]
