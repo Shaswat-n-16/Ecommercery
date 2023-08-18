@@ -53,4 +53,8 @@ UserSchema.virtual("fullName").get(function () {
   return `${this.firstName} ${this.lastName}`;
 });
 
+UserSchema.virtual("initials").get(function () {
+  return `${this.firstName[0]} ${this.lastName[0]}`;
+});
+
 export const User = mongoose.model("User", UserSchema);
