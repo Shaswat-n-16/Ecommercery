@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { hashPassword } from "../../utils/auth.utils";
 
 const UserSchema = new mongoose.Schema({
   firstName: {
@@ -54,7 +55,36 @@ UserSchema.virtual("fullName").get(function () {
 });
 
 UserSchema.virtual("initials").get(function () {
-  return `${this.firstName[0]} ${this.lastName[0]}`;
+  return `${this.firstName[0]}${this.lastName[0]}`;
 });
+
+UserSchema.pre("save", async function (next) {
+  console.log("hasing password");
+  if (!this.isModified("password")) return next();
+  const hashedPassword = await hashPassword(this.password);
+  this.password = hashedPassword;
+  next();
+});
+
+UserSchema.statics.exists = async function (id) {
+  try {
+    const user = await this.findOne({ _id: id });
+    if (user) throw new Error("User already exists");
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+UserSchema.statics.findByEmail = async function (email) {
+  try {
+    console.log(email);
+    const user = await this.findOne({ email });
+    if (user) throw new Error("User already exists");
+    return;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const User = mongoose.model("User", UserSchema);
