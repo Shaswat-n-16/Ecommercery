@@ -10,9 +10,8 @@ import {
 import { User } from "../db";
 const router = Router();
 
-// create reset pass link
 router.post("/forgot-password", forgotPassword);
-// reset the password
+
 router.post(
   "/reset-password/:token",
   body("password").trim().isLength({ min: 5 }),

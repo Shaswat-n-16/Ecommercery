@@ -34,19 +34,6 @@ const UserSchema = new mongoose.Schema({
     // 1 - moderator
     // 2 - admin
   },
-
-  cartProduct: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
-  review: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Review",
-    },
-  ],
 });
 
 // virtual properties

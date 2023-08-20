@@ -6,12 +6,12 @@ import cors from "cors";
 import logger, { morganMiddleware } from "./logger";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth";
-// import postRoutes from './routes/post'
-// import commentRoutes from './routes/comment'
+import productRoutes from "./routes/product";
+
 import { connectDB } from "./utils/db.utils";
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
 connectDB();
 
@@ -20,8 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(morganMiddleware);
 app.use("/auth", authRoutes);
-// app.use('/post', postRoutes)
-// app.use('/comment', commentRoutes)
+app.use("/product", productRoutes);
 
 app.get("/", (req, res) => {
   res.send(`Server is running `);
